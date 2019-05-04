@@ -1,6 +1,4 @@
-// 1: template strings - basics
-// To do: make all tests pass, leave the asserts unchanged!
-// Follow the hints of the failure messages!
+// es6 template strings.
 
 describe('A template string, is wrapped in ` (backticks) instead of \' or "', function() {
     describe('by default, behaves like a normal string', function() {
@@ -43,5 +41,35 @@ describe('A template string, is wrapped in ` (backticks) instead of \' or "', fu
       });
     });
   });
+  
+  describe('Tagged template strings, are an advanced form of template strings', function() {
+    it('syntax: prefix a template string with a function to call (without "()" around it)', function() {
+      function tagFunction(s) {
+        return s.toString();
+      }
+      var evaluated = tagFunction `template string`;
+      assert.equal(evaluated, 'template string');
+    });
+    
+    
+    
+    describe('the tag function can access each part of the template', function() {
+      describe('the 1st parameter receives only the pure strings of the template string', function() {
+        function tagFunction(strings) {
+          return strings;
+        }
+        it('the strings are an array', function() {
+          var result = (tagFunction`template string`);
+          assert.deepEqual(tagFunction`template string`, result);
+        });
+        
+        
+        
+        it('expressions are NOT passed to it', function() {
+          var tagged = tagFunction`one${23}two`;
+          assert.deepEqual(tagged, ['one', 'two']);
+      
+          
+    
   
   
