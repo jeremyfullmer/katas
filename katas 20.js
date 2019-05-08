@@ -80,6 +80,7 @@ describe('Rest parameters with destructuring', () => {
           assert.deepEqual(new X(...args), [1, 2, 3]);
         });
       });
+
     //21
     describe('Spread syntax with strings', () => {
         it('expands each character of a string by prefixing it with `...`', function() {
@@ -104,6 +105,7 @@ describe('Rest parameters with destructuring', () => {
             assert.deepEqual(max, 5);
           });
         });
+
         //22
         describe('Class creation', () => {
             it('is as simple as `class XXX {}`', function() {
@@ -126,9 +128,54 @@ describe('Rest parameters with destructuring', () => {
                 assert.equal(user.id, 42);
               });
               //23
-              // 23: class - accessors
-// To do: make all tests pass, leave the assert lines unchanged!
-// Follow the hints of the failure messages!
+              describe('class accessors (getter and setter)', () => {
+
+                it('only a getter is defined like a method prefixed with `get`', () => {
+                  class MyAccount {
+                    get balance() { return Infinity; }
+                  }
+              
+                  assert.equal(new MyAccount().balance, Infinity);
+                });
+              
+                it('a setter has the prefix `set`', () => {
+                  class MyAccount {
+                    get balance() { return this.amount; }
+                    set balance(amount) { this.amount = amount; }
+                  }
+              
+                  const account = new MyAccount();
+                  account.balance = 23;
+                  assert.equal(account.balance, 23);
+                });
+              
+                describe('dynamic accessors', () => {
+              
+                  it('a dynamic getter name is enclosed in [ and ]', function() {
+                    const balance = 'yourMoney';
+                    class YourAccount {
+                      get [balance]() { return -Infinity; }
+                    }
+              
+                    assert.equal(new YourAccount().yourMoney, -Infinity);
+                  });
+              
+                  it('a dynamic setter name as well', function() {
+                    const propertyName = 'balance';
+                    class MyAccount {
+                      get [propertyName]() { return this.amount; }
+                      set [propertyName](amount) { this.amount = 23; }
+                    }
+              
+                    const account = new MyAccount();
+                    account.balance = 42;
+                    assert.equal(account.balance, 23);
+                  });
+                });
+              
+              });
+              
+//24
 
 describe('Class accessors (getter and setter)', () => {
     it('a getter is defined like a method prefixed with `get`', () => {
@@ -163,7 +210,111 @@ describe('Class accessors (getter and setter)', () => {
       });
     });
   });
+
   //24
+  describe('inside a class you can use the `static` keyword', () => {
+
+    describe('for methods', () => {
+  
+      class IntegrationTest {}
+      class UnitTest {}
+  
+      it('a static method just has the prefix `static`', () => {
+        class TestFactory {
+          static makeTest() { return new UnitTest(); }
+        }
+  
+        assert.ok(TestFactory.makeTest() instanceof UnitTest);
+      });
+
+  
+      it('the method name can be dynamic/computed at runtime', () => {
+        const methodName = 'makeTest';
+        class TestFactory {
+          static [methodName]() { return new UnitTest(); }
+        }
+  
+        assert.ok(TestFactory.makeTest() instanceof UnitTest);
+      });
+    });
+
+  
+    describe('for accessors', () => {
+      it('a getter name can be static, just prefix it with `static`', () => {
+        class UnitTest {
+          static get testType() { return 'unit'; }
+        }
+  
+        assert.equal(UnitTest.testType, 'unit');
+      });
+
+  
+      it('even a static getter name can be dynamic/computed at runtime', () => {
+        const type = 'test' + 'Type';
+        class IntegrationTest {
+          static get [type]() { return 'integration'; }
+        }
+  
+        assert.ok('testType' in IntegrationTest);
+        assert.equal(IntegrationTest.testType, 'integration');
+      });
+    });
+  
+  });
+
+  //25
+
+
+  describe('classes can inherit from another', () => {
+
+    describe('the default super class is Object', () => {
+  
+      it('class A is an instance of Object', () => {
+        //let A     
+        let A = class{};
+  
+        assert.equal(new A() instanceof Object, true);
+      });
+
+
+  
+      it('B extends A, B is also instance of Object', () => {
+        class A {}
+        class B  extends A{}
+  
+        assert.equal(new B() instanceof A, true);
+        assert.equal(new B() instanceof Object, true);
+      });
+  
+      it('class can extend `null`, not an instance of Object', () => {
+        class NullClass extends null {}
+  
+        let nullInstance = new NullClass();
+        assert.equal(nullInstance instanceof Object, false);
+      });
+  
+    });
+  
+    describe('instance of', () => {
+      it('when B inherits from A, `new B()` is also an instance of A', () => {
+        let A = class {};
+        class B extends A {}
+  
+        assert.equal(new B() instanceof A, true);
+      });
+  
+      it('extend over multiple levels', () => {
+        class A {}
+        class B extends A {}
+        class C extends B {}
+  
+        let instance = new C();
+        assert.equal(instance instanceof A, true);
+      });
+    });
+  });
+
+  
   
 
 
