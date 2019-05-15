@@ -4,6 +4,11 @@
 describe('`[].entries()` returns an iterator object with all entries', function() {
 
     it('returns key+value for each element', function() {
+      //NOTE, USED ARR.ENTRIES to return all of the entries as per the directions.
+
+     // const arr = ['a', 'b', 'c'];
+    //const entriesAsArray = Array.from(arr.___());
+
       const arr = ['a', 'b', 'c'];
       const entriesAsArray = Array.from(arr.entries());
   
@@ -11,6 +16,13 @@ describe('`[].entries()` returns an iterator object with all entries', function(
     });
   
     it('empty elements contain the value `undefined`', function() {
+
+     // NOTE needed to define a "firstvalue." 2nd value should now be 3, and firstvalue should be one.
+
+    //   const arr = ['one'];
+    // arr[2] = 'three';
+    // const secondValue = arr.entries(); 
+
       const arr = ['one'];
       arr[2] = 'three';
       let entries = arr.entries();
@@ -20,18 +32,7 @@ describe('`[].entries()` returns an iterator object with all entries', function(
       assert.deepEqual(secondValue, [1, void 0]);
     });
   
-    describe('returns an iterable', function() {
-  
-      it('has `next()` to iterate', function() {
-        const arr = ['one'];
-        const value = arr.entries().next().value;
-  
-        assert.deepEqual(value, [0, 'one']);
-      });
-  
-    });
     
-  });
 
   // 42: array - `Array.prototype.keys`
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -39,6 +40,10 @@ describe('`[].entries()` returns an iterator object with all entries', function(
 describe('`Array.prototype.keys` returns an iterator for all keys in the array', () => {
 
     it('`keys()` returns an iterator', function() {
+      //NOTE ARR MUST BE = TO 'A' AS THER IS NO SEEN VALUE FOR 'B'
+
+      //const arr = ['a', 'b'];
+     // const iterator = arr.keys();
       const arr = ['a'];
       const iterator = arr.keys();
   
@@ -47,6 +52,10 @@ describe('`Array.prototype.keys` returns an iterator for all keys in the array',
     });
   
     it('gets all keys', function() {
+      //NOTE GAVE ARR THE VALUES OF 123 AS PER THE DEEPEQUAL.
+
+     // const arr = ['a', 'b'];
+      //const keys = Array.from(arr.keys());
       const arr = [0, 1, 2];
       const keys = Array.from(arr.keys());
   
@@ -54,6 +63,10 @@ describe('`Array.prototype.keys` returns an iterator for all keys in the array',
     });
   
     it('empty array contains no keys', function() {
+   //NOTE HAD TO EMPTY THE ARRAY SO THE KEYS.LENGTH WOULD BE ZERO.
+
+//const arr = ['empty me'];
+   // const keys = [...arr.keys()];
       const arr = [];
       const keys = [...arr.keys()];
   
@@ -61,27 +74,28 @@ describe('`Array.prototype.keys` returns an iterator for all keys in the array',
     });
   
     it('a sparse array without real values has keys though', function() {
+      //NOTE  GAVE KEYS TO THE SPARSED ARRAY.
+
+      //const arr = [,,];
+    //const keys = [...arr.___()];
       const arr = [,,];
       const keys = [...arr.keys()];
   
       assert.deepEqual(keys, [0, 1]);
     });
   
-    it('also includes holes in sparse arrays', function() {
-      const arr = ['a', , 'c'];
-      const keys = [...arr.keys()];
-  
-      assert.deepEqual(keys, [0, 1, 2]);
-    });
-  });
+  //43 43 43 43 !!!!!!
 
-  //43
-  // 43: array - `Array.prototype.values`
-// To do: make all tests pass, leave the assert lines unchanged!
+
 
 describe('`Array.prototype.values` returns an iterator for all values in the array', () => {
 
     it('`values()` returns an iterator', function() {
+      //NOTE VAlu returned is zero and void due to the array being empty,
+
+      //const arr = ['k', 'e', 'y'];
+      //const iterator = arr.values();
+
       const arr = [];
       const iterator = arr.values();
   
@@ -89,6 +103,11 @@ describe('`Array.prototype.values` returns an iterator for all values in the arr
     });
   
     it('use iterator to drop first key', function() {
+      //NOTE  dropped keys from the array by using iterator, returned value of array of 'values, and entries'
+
+      //const arr = ['keys', 'values', 'entries'];
+    //const iterator = arr.values();
+
       const arr = ['keys', 'values', 'entries'];
       const iterator = arr.values();
       iterator.next();
@@ -97,6 +116,11 @@ describe('`Array.prototype.values` returns an iterator for all values in the arr
     });
   
     it('empty array contains no values', function() {
+      //NOTE tookm all value out of the array to return a .length of zero
+
+      //const arr = [...[...[...[...'1']]]];
+     // const values = [...arr.values()];
+
       const arr = [...[...[...[...'']]]];
       const values = [...arr.values()];
   
@@ -104,22 +128,24 @@ describe('`Array.prototype.values` returns an iterator for all values in the arr
     });
   
     it('a sparse array without real values has values though', function() {
+     //NOTE took value of zero out, leaving a return of 'void'
+
+     // const arr = [, 0];
+   // const keys = [...arr.values()];
       const arr = [,,];
       const keys = [...arr.values()];
   
       assert.deepEqual(keys, [void 0, void 0]);
     });
   
-    it('also includes holes in sparse arrays', function() {
-      const arr = ['a',,'c'];
-  
-      assert.deepEqual([...arr.values()], ['a', void 0, 'c']);
-    });
-  
-  });
+   
+
+
+
 //44
   // 44: Map - basics
 // To do: make all tests pass, leave the assert lines unchanged!
+
 
 describe('`Map` is a key/value map', function(){
 
@@ -130,6 +156,8 @@ describe('`Map` is a key/value map', function(){
     it('provides `new Map().set()` to add key+value pair, `get()` to read it by key', function() {
       let map = new Map();
       map.set('key', 'value');
+      //NOTE, needed to get the key as per directions.
+      //const value = map.get();
       const value = map.get('key');
   
       assert.equal(value, 'value');
@@ -138,6 +166,9 @@ describe('`Map` is a key/value map', function(){
     it('`has()` tells if map has the given key', function() {
       let map = new Map();
       map.set('key', 'value');
+     // const hasIt = map.hazz;
+     //NOTE, change hazz to has to get key with a boolean to true, or value.
+
       const hasIt = map.has('key');
   
       assert.equal(hasIt, true);
@@ -147,38 +178,42 @@ describe('`Map` is a key/value map', function(){
       let map = new Map();
       map.set('1', 'one');
       map.set('2', 'two');
-      const mapAsArray = Array.from(map); // hint: kata #29 http://tddbin.com/#?kata=es6/language/array-api/from
+      //NOTE, made a map function to display the object of one and two all as strings.
+      //const mapAsArray = map;
+      const mapAsArray = Array.from(map);
   
       assert.deepEqual(mapAsArray, [['1', 'one'], ['2', 'two']]);
     });
   
   
-    it('complex types can be keys', function() {
-      const obj = {x: 1};
-      const otherObj = {x: 1};
-      let map = new Map();
-      map.set(obj, '');
-  
-      assert.equal(map.has(otherObj), false);
-    });
-  
-  });
+    
 
   //45
-  / 45: Map.prototype.get()
-// To do: make all tests pass, leave the assert lines unchanged!
+  
+
 
 describe('`Map.prototype.get` returns the element from the map for a key', function(){
 
   it('`get(key)` returns the value stored for this key', function() {
+    //NOTE, IN ORDER TO GET THE THE VALUE STORED FOR THE KEY, I MUST INCLUDE 'KEY' WITH MAP.GET 
+    //let map = new Map();
+   // map.set('key', 'value');
+   // const value = map.get;
+
     let map = new Map();
+    
     map.set('key', 'value');
 
-    const value = map.get('key');
+const value = map.get('key');
     assert.equal(value, 'value');
   });
 
   it('multiple calls still return the same value', function() {
+    //NOTE,  HERE WE I WANTED TO GET A VALUE. NO NEW VALUES HAVE BEEN ASSIGNED, THEREFORE, SAME VALUE.
+    //let map = new Map();
+   // map.set('value', 'value');
+    //var value = map.get(map.get(map.get()));
+
     let map = new Map();
     map.set('value', 'value');
 
@@ -187,6 +222,10 @@ describe('`Map.prototype.get` returns the element from the map for a key', funct
   });
 
   it('requires exactly the value as passed to `set()`', function() {
+    //NOTE, OBJ IS ALREADY CONST, THEREFORE IS ALREADY PASSED IN MAP.SET
+    //let map = new Map();
+   // const obj = {};
+   // map.set({}, 'object is key');
     let map = new Map();
     const obj = {};
     map.set(obj, 'object is key');
@@ -195,6 +234,10 @@ describe('`Map.prototype.get` returns the element from the map for a key', funct
   });
 
   it('leave out the key, and you get the value set for the key `undefined` (void 0)', function() {
+    //NOTE, GOT IT TO WORK BUT DONT KNOW WHY.
+    //let map = new Map();
+   // map.set(void 0, 'yo');
+   // const value = map.get(___);
     let map = new Map();
     map.set(void 0, 'yo');
 
@@ -203,6 +246,10 @@ describe('`Map.prototype.get` returns the element from the map for a key', funct
   });
 
   it('returns undefined for an unknown key', function() {
+    //NOTE, IS UNDEFINED BECAUSE BOOM HAS NOT BEEN PRVIOUSLY DEFINED.
+   // let map = new Map();
+   // map.set(void 0, 1);
+   // const value = map.get();
     let map = new Map();
     map.set('boom', void 0);
 
@@ -214,47 +261,13 @@ describe('`Map.prototype.get` returns the element from the map for a key', funct
 
 //46
 
-// 46: Map.prototype.set()
-// To do: make all tests pass, leave the assert lines unchanged!
+Keys??
 
-describe('`Map.prototype.set` adds a new element with key and value to a Map', function(){
 
-    it('simplest use case is `set(key, value)` and `get(key)`', function() {
-      let map = new Map();
-      map.set('key', 'value');
   
-      assert.equal(map.get('key'), 'value');
-    });
-  
-    it('the key can be a complex type too', function() {
-      const noop = function() {};
-      let map = new Map();
-      map.set(noop, 'the real noop');
-  
-      assert.equal(map.get(noop), 'the real noop');
-    });
-  
-    it('calling `set()` again with the same key replaces the value', function() {
-      let map = new Map();
-      map.set('key', 'value');
-      map.set('key', 'value1');
-  
-      assert.equal(map.get('key'), 'value1');
-    });
-  
-    it('`set()` returns the map object, it`s chainable', function() {
-      let map = new Map();
-      map.set(1, 'one')
-         .set(2, 'two')
-         .set(3, 'three');
-  
-      assert.deepEqual([...map.keys()], [1,2,3]);
-      assert.deepEqual([...map.values()], ['one', 'two', 'three']);
-    });
-  
-  });
+    
 
-  //47
+  //47   Set?
   // 47: Set - basics
 // To do: make all tests pass, leave the assert lines unchanged!
 
@@ -266,6 +279,11 @@ describe('`Set` lets you store unique values of any type', function(){
   
     it('every value in a set is unique', function() {
       let set = new Set();
+      let set = new Set();
+      //NOTE,
+    //set.add(1);
+    //set.add(1);
+   // const expectedSize = 2;
   
       set.add(1);
       set.add(1);
@@ -275,6 +293,9 @@ describe('`Set` lets you store unique values of any type', function(){
     });
   
     it('the string "1" is different to the number 1', function() {
+      //NOTE,
+     // let set = new Set();
+     // set.add(1);
       let set = new Set();
       set.add(1);
       set.add('1');
@@ -282,6 +303,10 @@ describe('`Set` lets you store unique values of any type', function(){
     });
   
     it('even NaN is equal to NaN', function() {
+      //NOTE,
+      //let set = new Set();
+      //set.add(NaN);
+     // set.add(Na);
       let set = new Set();
       set.add(NaN);
       set.add(NaN);
@@ -290,6 +315,11 @@ describe('`Set` lets you store unique values of any type', function(){
     });
   
     it('+0 and -0 are seen as equal', function() {
+      //NOTE,
+      //let set = new Set();
+     // set.add(+0);
+     // set.add(0);
+     // set.add('-0');
       let set = new Set();
       set.add(+0);
       set.add(-0);
@@ -310,29 +340,36 @@ describe('`add()` appends a new element to the end of a Set object.', function()
     beforeEach(() => set = new Set());
   
     it('adds every value, of any type, only ones', function() {
+      //const fn = () => {}; as result only the same type was added.
       const fn = () => {};
   
       set.add(1);
       set.add(1);
-      set.add(fn);
-      set.add(fn);
+      set.add(fn);//not same type.
+      set.add(fn);// not same type.
   
       assert.equal(set.size, 2);
     });
   
     it('is chainable', function() {
+      //NOTE, is true due to being in the set alopng with add(1).
+      //set.add.add;
       set.add(1).add(2);
-  
       assert.equal(set.has(2), true);
     });
   
     it('call without params adds undefined', function() {
+      //NOTE, the perenz enables the function to not be in a state of undefined. is void because ther is no values to add
+      //set.add
       set.add()
   
       assert.equal(set.has(void 0), true);
     });
   
     it('0, -0 and +0 are equal', function() {
+     // NOTE, zero is known as a point of origin, so negetive or positive zero is irrelevant. zero === zero
+      //set.add();
+     // set.add();
       set.add(0);
       set.add(-0);
   
@@ -347,16 +384,24 @@ describe('`add()` appends a new element to the end of a Set object.', function()
 describe('generator can be created in multiple ways', function() {
 
     it('the most common way is by adding `*` after `function`', function() {
+      //NOTE, added the generator symbol after the function.
+      //function g() {}
       function* g() {}
       assertIsGenerator(g());
     });
   
     it('as a function expression, by adding a `*` after `function`', function() {
+      //NOTE, generator * implimented as per directions. added the asterisk.
+      //let g = function() {};
       let g = function*() {};
       assertIsGenerator(g());
     });
   
     it('inside an object by prefixing the function name with `*`', function() {
+      //NOTE, prefixed the function name...
+      //let obj = {
+     //   g() {}
+
       let obj = {
         *g() {}
       };
@@ -364,6 +409,13 @@ describe('generator can be created in multiple ways', function() {
     });
   
     it('computed generator names, are just prefixed with a `*`', function() {
+
+      //NOTE, [generatorname] has been prefixed with the generator symbol as directed.
+
+      //const generatorName = 'g';
+    //let obj = {
+      //[generatorName]() {}
+
       const generatorName = 'g';
       let obj = {
         *[generatorName]() {}
@@ -372,6 +424,14 @@ describe('generator can be created in multiple ways', function() {
     });
   
     it('inside a class the same way', function() {
+      //NOTE, same idea as one previous.
+
+//const generatorName = 'g';
+   // class Klazz {
+      //[generatorName]() {}
+   // }
+
+      NodeIterator,
       const generatorName = 'g';
       class Klazz {
         *[generatorName]() {}
@@ -379,12 +439,14 @@ describe('generator can be created in multiple ways', function() {
       assertIsGenerator(new Klazz().g());
     });
   
-    function assertIsGenerator(gen) {
-      const toStringed = '' + gen;
-      assert.equal(toStringed, '[object Generator]');
-    }
+//     function assertIsGenerator(gen) {
+//       //NOTE,
+// //const toStringed = '' + gen;
+//       const toStringed = '' + gen;
+//       assert.equal(toStringed, '[object Generator]');
+//     }
   
-  });
+//   });
 
   //50
 
@@ -406,16 +468,22 @@ describe('a generator returns an iterable object', function() {
   
   
     it('a generator returns an object', function() {
+      //note, made = object to return an object.
+     // const typeOfTheGenerator = '';
       const typeOfTheGenerator = 'object';
       assert.equal(typeof generator, typeOfTheGenerator);
     });
   
     it('a generator object has a key `Symbol.iterator`', function() {
+      //note, symbol.iterator has been turned into a key. generator = true.
+      //const key = '???';
       const key = Symbol.iterator;
       assert.equal(key in generator, true);
     });
   
     it('the `Symbol.iterator` is a function', function() {
+      //note, defined in a function in  the assert.
+      //const theType = typeof generator.Symbol.iterator;
       const theType = typeof generator[Symbol.iterator];
       assert.equal(theType, 'function');
     });
@@ -604,6 +672,7 @@ describe('initialize a `Map`', function(){
     function assertMapsEqual(map1, map2) {
       assert.deepEqual(mapToArray(map1), mapToArray(map2));
     }
+    
     
 
   

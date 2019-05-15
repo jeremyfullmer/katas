@@ -179,6 +179,11 @@ describe('array is a built-in iterable object', function() {
   
     describe('the iterator', function() {
       it('an array has an iterator, which is a function', function() {
+       // Note: needed to change the third const to a function, because "expected" is in the params of the function on the assert."
+        //const iterator = arr[Symbol.iterator];
+      //const theType = typeof iterator;
+      //const expected = 'iterator?';
+
         const iterator = arr[Symbol.iterator];
         const theType = typeof iterator;
         const expected = 'function';
@@ -187,6 +192,11 @@ describe('array is a built-in iterable object', function() {
       });
   
       it('can be looped with `for-of`, which expects an iterable', function() {
+        //Note: length is always initialized at zero, therfore must be incremented and not decremented.!!
+        //let count = 0;
+      //for (let value of arr) {
+       // count--;
+      //}
         let count = 0;
         for (let value of arr) {
           count++;
@@ -199,13 +209,24 @@ describe('array is a built-in iterable object', function() {
     describe('the iterator protocol', function() {
   
       it('calling `next()` on an iterator returns an object according to the iterator protocol', function() {
+        //Note: 
+        //const iterator = arr[Symbol.iterator]();
+      //const firstItem = iterator.___();
+
         const iterator = arr[Symbol.iterator]();
         const firstItem = iterator.next();
-  
+        
         assert.deepEqual(firstItem, {done: false, value: 'a'});
       });
   
       it('the after-last element has done=true', function() {
+
+        //Note: the iterater must be given the command of .next, in order to eventually have a true value of done on the assert!!
+
+       // const arr = [];
+      //const iterator = arr[Symbol.iterator]();
+      //const afterLast = iterator;
+
         const arr = [];
         const iterator = arr[Symbol.iterator]();
         const afterLast = iterator.next();
@@ -230,10 +251,15 @@ describe('string is a built-in iterable object', function() {
   
     describe('string is iterable', function() {
       it('the string`s object key `Symbol.iterator` is a function', function() {
+        //const isA = typeof s.Symbol.iterator; NOTE, made sure to turn symbole.iterator into an object due to directions from 'it'!!
+
         const isA = typeof s[Symbol.iterator];
         assert.equal(isA, 'function');
       });
       it('use `Array.from()` to make an array out of any iterable', function(){
+
+        //const arr = s;  NOTE; will declare the array.from function with using "s" as the perameter.
+
         const arr = Array.from(s);
         assert.deepEqual(arr, ['a', 'b', 'c']);
       });
@@ -246,16 +272,19 @@ describe('string is a built-in iterable object', function() {
       });
   
       it('has a special string representation', function(){
+       // const description = iterator.to____();  NOTE, needed to call tostring as per string representation.
         const description = iterator.toString();
         assert.equal(description, '[object String Iterator]');
       });
   
       it('`iterator.next()` returns an object according to the iterator protocol', function(){
+        //const value = iterator.___();  NOTE called iterator.next according to the protocal.
         const value = iterator.next();
         assert.deepEqual(value, {done: false, value: 'a'});
       });
   
       it('the after-last call to `iterator.next()` says done=true, no more elements', function(){
+       // iterator.next(); NOTE needed to call iterator.next until test passed..
         iterator.next();
         iterator.next();
         iterator.next();
@@ -267,13 +296,13 @@ describe('string is a built-in iterable object', function() {
 
   //39
   // 39: iterator - custom. Iterable is a protocol, when implemented allows objects
-// to customize their iteration behavior, such as what values are looped over in a for..of construct.
-// read more at https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols
 
-// To do: make all tests pass, leave the assert lines unchanged!
-// Follow the hints of the failure messages!
+
+
 
 describe('A simple iterable without items inside, implementing the right protocol', () => {
+
+//NOTE, as per directions i turned iteratot into an arror function to eventually give me a return of done:true in the form of an object.
 
     function iteratorFunction() {
   
@@ -296,7 +325,14 @@ describe('A simple iterable without items inside, implementing the right protoco
         assert.deepEqual(iteratorFunction().next(), {done: true});
       });
     });
-  
+
+
+  //let iterable;
+ // beforeEach(function() {
+   // iterable;
+
+  });
+//NOTE,in order to have an object returned, i have to make iterable = to an object, as per the directions. re-define iterable as symbol.iterator
     let iterable;
     beforeEach(function() {
       iterable = {};
@@ -313,137 +349,10 @@ describe('A simple iterable without items inside, implementing the right protoco
     });
     describe('using the iterable', function() {
         it('it contains no values', function() {
-          let values = 0;
-          for (let value of iterable) {
-            values += value;
-          }
-          assert.equal(values, '');
-        });
-    
-        it('has no `.length` property', function() {
-          const hasLengthProperty = 'length' in iterable;
-          assert.equal(hasLengthProperty, false);
-        });
-    
-        describe('can be converted to an array', function() {
-          it('using `Array.from()`', function() {
-            const arr = Array.from(iterable);
-            assert.equal(Array.isArray(arr), true);
-          });
-    
-          it('where `.length` is still 0', function() {
-            const arr = Array.from(iterable);
-            const length = arr.length;
-            assert.equal(length, 0);
-          });
-        });
-      });
-    
-    });
+          
 
-    //40
-
-    // 40: iterator - one example usage. Build an iterable and use it with some built-in ES6 constructs.
-// To do: make all tests pass, leave the assert lines unchanged!
-
-// Consumable users:
-// - `consumableUser` contains a consumable user,
-// - `anyLeft` tells if there is any user left that can be consumed.
-class ConsumableUsers {
-    constructor() {
-      this.users = ['Alice', 'Bob'];
-    }
-    get nextUser() {
-      if (this.users.length > 0) {
-        return `user: ${this.users.shift()}`;
-      }
-      return void 0;
-    }
-    get anyLeft() {
-      return this.users.length > 0;
-    }
-  }
+    
   
-  describe('Iterator usages', () => {
-  
-    let usersIterable;
-    beforeEach(function(){
-      const consumableUsers = new ConsumableUsers();
-      function iteratorFunction() {
-        return {
-          next: function() {
-            const anyLeft = consumableUsers.anyLeft;
-            return {value: consumableUsers.nextUser, done: !anyLeft}
-          }
-        }
-      }
-  
-      usersIterable = {
-        [Symbol.iterator]: iteratorFunction
-      };
-    });
-  
-    describe('create an iterator/iterable', function() {
-      it('the `usersIterable` should be iterable', function() {
-        const isIterable = Symbol.iterator in usersIterable;
-        assert.equal(isIterable, true);
-      });
-      it('the iterator of `usersIterable` should return an object', function() {
-        const iterator = usersIterable[Symbol.iterator]();
-        assert.equal(typeof iterator, 'object');
-      });
-  
-      it('the iterator of `usersIterable` should have a next function', function() {
-        const iterator = usersIterable[Symbol.iterator]();
-        assert.equal(typeof iterator.next, 'function');
-      });
-    });
-  
-    describe('fill the iterable with content using `ConsumableUsers`', function() {
-  
-      describe('using the iterator', function() {
-        let iterator;
-        beforeEach(function(){
-          iterator = usersIterable[Symbol.iterator]();
-        });
-        it('should return `Alice` as first user', function() {
-          const firstItem = iterator.next();
-          assert.deepEqual(firstItem, {value: "user: Alice", done: false});
-        });
-        it('should return `Bob` as second user', function() {
-          iterator.next(); // drop the first item
-          const secondItem = iterator.next();
-          assert.deepEqual(secondItem, {value: "user: Bob", done: false});
-        });
-        it('should return `done:true`, which means there are no more items', function() {
-          iterator.next();
-          iterator.next();
-          const beyondLast = iterator.next();
-          assert.deepEqual(beyondLast, {value: void 0, done: true});
-        })
-      });
-      describe('using built-in constructs', function() {
-        it('use `Array.from()` to convert an iterable to an array', function() {
-          const users = Array.from(usersIterable);
-          assert.deepEqual(users, ['user: Alice', 'user: Bob']);
-        });
-        it('use for-of to loop over an iterable', function() {
-          const users = [];
-          for (let user of usersIterable) users.push(user);
-          assert.deepEqual(users, ['user: Alice', 'user: Bob']);
-        });
-        it('use the spread-operator to convert/add iterable to an array', function() {
-          const users = ['noname', ...usersIterable];
-          assert.deepEqual(users, ['noname', 'user: Alice', 'user: Bob']);
-        });
-        it('destructure an iterable like an array', function() {
-          const [firstUser, secondUser] = usersIterable;
-          assert.equal(firstUser, 'user: Alice');
-          assert.equal(secondUser, 'user: Bob');
-        })
-      });
-    });
-  
-  });
-  
+    
+      
 
