@@ -524,11 +524,16 @@ describe('generator - `yield` is used to pause and resume a generator function',
     describe('after the first `generator.next()` call', function() {
   
       it('the value is "hello"', function() {
+        //note, needed to call a function after gen.nxt
+        //const {value} = generator.next;
         const {value} = generator.next();
+         
         assert.equal(value, 'hello');
       });
   
       it('and `done` is false', function() {
+        //note, instead of second, make in to next! with a function.
+       // const done = secondItem; 
         const {done} = generator.next();
         assert.equal(done, false);
       });
@@ -543,11 +548,14 @@ describe('generator - `yield` is used to pause and resume a generator function',
         secondItem = generator.next();
       });
       it('`value` is "world"', function() {
+        
         let {value} = secondItem;
         assert.equal(value, 'world');
       });
   
       it('and `done` is still false', function() {
+        //note, went off of the leadership of prious example 2nd item being false.
+       // const done = secondItem;
         const {done} = secondItem;
         assert.equal(done, false);
       });
@@ -558,6 +566,8 @@ describe('generator - `yield` is used to pause and resume a generator function',
       it('`done` property equals true, since there is nothing more to iterator over', function() {
         generator.next();
         generator.next();
+        //note, 
+        //let done = generator.done;
         let {done} = generator.next();
         assert.equal(done, true);
       });
@@ -566,7 +576,7 @@ describe('generator - `yield` is used to pause and resume a generator function',
   
   });
 
-  //52
+  //52  dont know generator function, wasnt tought.
 
   // 52: Generator - Send value to a generator
 // To do: make all tests pass, leave the assert lines unchanged!
@@ -581,6 +591,9 @@ describe('pass a value to a generator', () => {
       // way #1
       var convertedToAnArray = Array.from(generatorFunction());
       // way #2
+      //note,generator function, wtf?
+     // var iterator = generatorFunction();
+      //var iteratedOver = [iterator.next().___, iterator.___];
       var iterator = generatorFunction();
       var iteratedOver = [iterator.next().value, iterator.next(2).value];
       assert.deepEqual(convertedToAnArray, iteratedOver);
@@ -598,18 +611,13 @@ describe('pass a value to a generator', () => {
   
     it('a value passed to the 1st `next()` call is ignored', function() {
       function* generatorFunction() {
+        //note,
+        //yield 1;
+      //yield param;
         yield 1;
         yield 2;
       }
-      let iterator = generatorFunction();
-      const values = [
-        iterator.next('irrelevant').value,
-        iterator.next(2).value
-      ];
-      assert.deepEqual(values, [1, 2]);
-    });
-  
-  });
+      
 
   //53
 
@@ -619,17 +627,22 @@ describe('pass a value to a generator', () => {
 describe('initialize a `Map`', function(){
 
     it('a `new Map()` is empty, has size=0', function() {
+      //note,
+     // const mapSize = new Map();
       const mapSize = new Map().size;
       assert.equal(mapSize, 0);
     });
   
     it('init Map with `[[]]` has a size=1', function() {
+      //note,
+     // const mapSize = new Map().size;
       const mapSize = new Map([[]]).size;
   
       assert.equal(mapSize, 1);
     });
   
     it('init a Map with `[[1]]` is the same as `map.set(1, void 0)`', function() {
+
       let map1 = new Map([[1]]);
       let map2 = new Map().set(1, void 0);
   
@@ -637,6 +650,9 @@ describe('initialize a `Map`', function(){
     });
   
     it('init Map with multiple key+value pairs', function() {
+      //note,
+      //let map1 = new Map();
+      //let map2 = new Map().set(1, void 0);
       const pair1 = [1, 'one'];
       const pair2 = [2, 'two'];
   
@@ -646,22 +662,35 @@ describe('initialize a `Map`', function(){
     });
   
     it('keys are unique, the last one is used', function() {
+      
+      
+    
+   
+    //NOTE, AS PER NEW CONST, THE LAST PAIR IS USED.
+    //const map = new Map([pair3, pair1, pair2, pair4]);
       const pair1 = [1, 'one'];
       const pair2 = [1, 'uno'];
       const pair3 = [1, 'eins'];
       const pair4 = [2, 'two'];
   
-      const map = new Map([pair3, pair4]);
+      const map = new Map([pair4]);
   
       assertMapsEqual(map, new Map().set(...pair3).set(...pair4));
     });
+
     it('init Map from an Object, is a bit of work', function() {
+
         let map = new Map();
+        //NOTE, 
+        //const obj = {x: 1, y: 2};
+       // const keys = Object.keys(obj);
         const obj = {x: 1, y: 2};
         const keys = Object.keys(obj);
         keys.forEach(key => map.set(key, obj[key]));
-    
+        
+        
         const expectedEntries = [['x', 1], ['y', 2]];
+
         assertMapsEqual(map, expectedEntries);
       });
     });
