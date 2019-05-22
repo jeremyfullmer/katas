@@ -358,14 +358,6 @@ describe('`Array.from` converts an array-like object or list into an Array', () 
     });
   
     it('the findIndex callback gets the item, index and array as arguments', function() {
-
-      // const three = 3;
-      // const containsThree = arr => arr.indexOf(three) > -1;
-      // function theSecondThree(index, arr) {
-      //   const preceedingItems = arr.slice(0, index);
-
-      //   return containsThree(preceedingItems);
-
       const three = 3;
       const containsThree = arr => arr.indexOf(three) > -1;
       function theSecondThree(item, index, arr) {
@@ -379,9 +371,7 @@ describe('`Array.from` converts an array-like object or list into an Array', () 
       assert.equal(foundAt, 4);
     });
 
-
-  
-    it('combined with destructuring complex compares become short', function() {
+ it('combined with destructuring complex compares become short', function() {
      // NOTE: SHORTENED LENGTH BY ASSIGNIONG IT TO L
 
       //const bob = {name: 'Bob'};
@@ -391,7 +381,7 @@ describe('`Array.from` converts an array-like object or list into an Array', () 
 
       const bob = {name: 'Bob'};
       const alice = {name: 'Alice'};
-      const foundAt = [bob, alice].findIndex(({name:{length:l}}) => l > 3);
+      const foundAt = [bob, alice].findIndex(({name:{length}}) => l > 3);
   
       assert.equal(foundAt, 1);
     });
